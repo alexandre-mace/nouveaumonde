@@ -1,0 +1,10 @@
+.reset {
+    color: initial;
+}
+.reset:hover {
+    color: initial;
+    text-decoration: none;
+}
+.card:hover {
+    cursor: pointer;
+}

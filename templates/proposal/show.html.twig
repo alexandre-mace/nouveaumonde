@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proposal{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col text-center">
+                <h1>{{ proposal.title }}</h1>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col">
+                <div class="my-3">
+                    <a href="{{ path('home') }}">Retour à la liste</a>
+                </div>
+            </div>
+
+            {% if app.user and proposal.author.id == app.user.id %}
+                <div class="col-auto">
+                    <a class="btn btn-info" href="{{ path('proposal_edit', {'id': proposal.id}) }}">Modifier</a>
+                </div>
+                <div class="col-auto">
+                    {{ include('proposal/_delete_form.html.twig') }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    Economie
+                </h4>
+            </div>
+            <div class="col-12">
+                <p>
+                    {{ proposal.economic }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    Jurice
+                </h4>
+            </div>
+            <div class="col-12">
+                <p>
+                    {{ proposal.juridic }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    Environment
+                </h4>
+            </div>
+            <div class="col-12">
+                <p>
+                    {{ proposal.environmental }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    Education
+                </h4>
+            </div>
+            <div class="col-12">
+                <p>
+                    {{ proposal.education }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    Culture
+                </h4>
+            </div>
+            <div class="col-12">
+                <p>
+                    {{ proposal.cultural }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
