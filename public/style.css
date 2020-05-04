@@ -12,7 +12,7 @@
     margin-top: 15px;
 }
 body {
-    background-color: #eee;
+    background-color: #000123;
     -webkit-transition: color 1s ease, background-color 1s ease;
     transition: color 1s ease, background-color 1s ease;
 }
@@ -51,18 +51,18 @@ input {
     transform: translateY(-20px) !important;
 }
 body.dark .btn {
-    background-color: #40c2a4;
+    background-color: #126AFC;
 }
 .badge {
-    background-color: #40c2a4;
+    background-color: #126AFC;
 }
 [type="checkbox"].filled-in:checked+span:not(.lever):after {
-    background-color: #40c2a4;
-    border-color: #40c2a4;
+    background-color: #126AFC;
+    border-color: #126AFC;
 }
 input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-    border-color: #40c2a4;
-    box-shadow: 0 1px 0 0 #40c2a4;
+    border-color: #126AFC !important;
+    box-shadow: 0 1px 0 0 #126AFC !important;
 }
 body.dark .divider {
     opacity: 0.2;
