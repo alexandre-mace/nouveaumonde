@@ -22,11 +22,14 @@ class ProposalRepository extends ServiceEntityRepository
     public function getProposalsOrderedByNumberOfLikes()
     {
         return $this->createQueryBuilder('p')
-            ->addSelect('COUNT(p) AS HIDDEN userCount')
-            ->leftJoin('p.likes', 'p')
+            ->addSelect('COUNT(u) AS HIDDEN totalLikes', 'p')
+            ->leftJoin('p.likes', 'u')
+            ->orderBy('totalLikes', 'DESC')
             ->groupBy('p')
-            ->orderBy('userCount', 'DESC');
+            ->getQuery()
+            ->getResult();
     }
+
     // /**
     //  * @return Proposal[] Returns an array of Proposal objects
     //  */

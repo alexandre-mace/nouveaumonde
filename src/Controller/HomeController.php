@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     public function index(ProposalRepository $proposalRepository): Response
     {
         return $this->render('proposal/index.html.twig', [
-            'proposals' => $proposalRepository->findAll(),
+            'proposals' => $proposalRepository->getProposalsOrderedByNumberOfLikes(),
         ]);
     }
 }
