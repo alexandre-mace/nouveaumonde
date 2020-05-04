@@ -14,23 +14,23 @@
     </head>
     <body class="dark">
         {% block header %}
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-auto mr-auto">
+            <div class="container mt-3 mt-md-5">
+                <div class="row align-items-center">
+                    <div class="col-12 text-center text-sm-left col-sm-auto mr-sm-auto">
                         <a class="reset" href="{{ path('home') }}"><h5><b><i>nouveau monde</i></b></h5></a>
                     </div>
                     {% if app.user %}
-                        <div class="col-auto ml-auto">
-                            <a class="btn " href="{{ path('proposal_new') }}">Nouvelle vision</a>
+                        <div class="text-center text-sm-left col-12 mt-3 mt-sm-0 col-sm-auto ml-sm-auto">
+                            <a class="btn" href="{{ path('proposal_new') }}">Nouvelle vision</a>
                         </div>
-                        <div class="col-auto pr-0">
+                        <div class="text-center text-sm-left col-12 mt-3 mt-sm-0 col-sm-auto col-auto pr-sm-0">
                             <a class="btn red" href="{{ path('app_logout') }}">Se déconnecter</a>
                         </div>
                     {% else %}
-                        <div class="col-auto ml-auto">
+                        <div class="text-center text-sm-left col-6 mt-3 mt-sm-0 col-sm-auto ml-sm-auto">
                             <a href="{{ path('app_login') }}">Se connecter</a>
                         </div>
-                        <div class="col-auto pr-0">
+                        <div class="text-center text-sm-left col-6 mt-3 mt-sm-0 col-sm-auto pr-0">
                             <a href="{{ path('app_register') }}">S'inscrire</a>
                         </div>
                     {% endif %}
