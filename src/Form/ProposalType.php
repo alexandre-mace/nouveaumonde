@@ -22,7 +22,7 @@ class ProposalType extends AbstractType
                 ]
             ])
             ->add('juridic', CKEditorType::class, [
-                'label' => 'Jurice',
+                'label' => 'Droit',
                 'label_attr' => [
                     'class' => 'wysiwyg-label'
                 ]
