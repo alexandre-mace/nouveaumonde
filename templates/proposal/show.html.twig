@@ -3,15 +3,10 @@
 {% block title %}Proposal{% endblock %}
 
 {% block body %}
-    <div class="container my-5">
-        <div class="row">
-            <div class="col text-center">
-                <h1>{{ proposal.title }}</h1>
-            </div>
-        </div>
-        <div class="row mb-5">
+    <div class="container my-5 show">
+        <div class="row align-items-center pt-5">
             <div class="col">
-                <div class="my-3">
+                <div class="">
                     <a href="{{ path('home') }}">Retour à la liste</a>
                 </div>
             </div>
@@ -26,14 +21,19 @@
             {% endif %}
         </div>
         <div class="row">
+            <div class="col text-center">
+                <h1>{{ proposal.title }}</h1>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 <h4>
                     Economie
                 </h4>
             </div>
-            <div class="col-12">
+            <div class="col-12 wysiwyg-display">
                 <p>
-                    {{ proposal.economic }}
+                    {{ proposal.economic|raw }}
                 </p>
             </div>
         </div>
@@ -43,9 +43,9 @@
                     Jurice
                 </h4>
             </div>
-            <div class="col-12">
+            <div class="col-12 wysiwyg-display">
                 <p>
-                    {{ proposal.juridic }}
+                    {{ proposal.juridic|raw }}
                 </p>
             </div>
         </div>
@@ -55,9 +55,9 @@
                     Environment
                 </h4>
             </div>
-            <div class="col-12">
+            <div class="col-12 wysiwyg-display">
                 <p>
-                    {{ proposal.environmental }}
+                    {{ proposal.environmental|raw }}
                 </p>
             </div>
         </div>
@@ -67,9 +67,9 @@
                     Education
                 </h4>
             </div>
-            <div class="col-12">
+            <div class="col-12 wysiwyg-display">
                 <p>
-                    {{ proposal.education }}
+                    {{ proposal.education|raw }}
                 </p>
             </div>
         </div>
@@ -79,11 +79,21 @@
                     Culture
                 </h4>
             </div>
-            <div class="col-12">
+            <div class="col-12 wysiwyg-display">
                 <p>
-                    {{ proposal.cultural }}
+                    {{ proposal.cultural|raw }}
                 </p>
             </div>
+        </div>
+        <div class="row  justify-content-center">
+            {% if app.user%}
+                <div class="col-3 text-center">
+                    <a href="{{ path('proposal_like', { id: proposal.id }) }}" class=" mt-3 btn action-button">Accord</a>
+                </div>
+                <div class="col-3 text-center">
+                    <a href="{{ path('proposal_dislike', { id: proposal.id }) }}" class=" mt-3 btn action-button">Désaccord</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 

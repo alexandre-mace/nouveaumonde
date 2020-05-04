@@ -3,33 +3,39 @@
 {% block title %}Proposal index{% endblock %}
 
 {% block body %}
-        <div class="container mt-5">
-            <div class="row mt-5 pt-5 mb-5">
-                <div class="col text-center">
-                    <h3>Proposez votre vision du <b><i>nouveau monde</i></b>.</h3>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                {% for proposal in proposals %}
-                    <div class="col-4">
-                        <a href="{{ path('proposal_show', {'id': proposal.id}) }}" class="reset">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ proposal.title }} <span class="text-white badge">{{ proposal.likes|length }}</span></h5>
-                                    <p class="card-text">{{ proposal.author.firstName }}</p>
-                                    {% if app.user%}
-                                        <a href="{{ path('proposal_like', { id: proposal.id }) }}" class=" mt-3 btn ">Accord</a>
-                                        <a href="{{ path('proposal_dislike', { id: proposal.id }) }}" class=" mt-3 btn ">Désaccord</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                {% else %}
-                    <div class="col text-center">
-                        <p>No proposal found</p>
-                    </div>
-                {% endfor %}
+    <div class="container mt-5">
+        <div class="row mt-5 pt-5 mb-5">
+            <div class="col text-center">
+                <h3>Proposez votre vision du <b><i>nouveau monde</i></b>.</h3>
             </div>
         </div>
+        <div class="row justify-content-center">
+            {% for proposal in proposals %}
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="{{ path('proposal_show', {'id': proposal.id}) }}" class="reset card-link">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ proposal.title }}</h5>
+                                <p class="card-text">{{ proposal.author.firstName }}</p><span class="text-white badge">{{ proposal.likes|length }}</span>
+{#                                {% if app.user%}#}
+{#                                    <div class="row">#}
+{#                                        <div class="col-6 p-0 mr-1">#}
+{#                                            <a href="{{ path('proposal_like', { id: proposal.id }) }}" class=" mt-3 btn action-button">Accord</a>#}
+{#                                        </div>#}
+{#                                        <div class="col-6 p-0 ml-1">#}
+{#                                            <a href="{{ path('proposal_dislike', { id: proposal.id }) }}" class=" mt-3 btn action-button">Désaccord</a>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                {% endif %}#}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                <div class="col text-center">
+                    <p>Pas encore de proposition</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
