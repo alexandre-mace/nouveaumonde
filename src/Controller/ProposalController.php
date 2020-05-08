@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Proposal;
+use App\Form\CommentType;
 use App\Form\ProposalType;
 use App\Repository\ProposalRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
  * @Route("/proposal")
@@ -45,14 +49,31 @@ class ProposalController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="proposal_show", methods={"GET"})
+     * @Route("/{id}", name="proposal_show", methods={"GET", "POST"})
+     * @param Request $request
      * @param Proposal $proposal
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function show(Proposal $proposal): Response
+    public function show(Request $request, Proposal $proposal, EntityManagerInterface $entityManager): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($this->getUser());
+            $comment->setProposal($proposal);
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('proposal_show', ['id' => $proposal->getId()]);
+        }
+
         return $this->render('proposal/show.html.twig', [
             'proposal' => $proposal,
+            'form'     => $form->createView()
         ]);
     }
 
@@ -80,6 +101,7 @@ class ProposalController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}/like", name="proposal_like", methods={"GET"})
      * @param Request $request
      * @param Proposal $proposal
@@ -92,10 +114,16 @@ class ProposalController extends AbstractController
         $proposal->removeDislike($this->getUser());
 
         $entityManager->flush();
-        return new RedirectResponse($request->headers->get('referer'));
+
+        if ($request->headers->get('referer') === $this->generateUrl('app_login', [], UrlGenerator::ABSOLUTE_URL)) {
+            return new RedirectResponse($this->generateUrl('home') . '#proposal' . $proposal->getId());
+        } else {
+            return new RedirectResponse($request->headers->get('referer') . '#proposal-' . $proposal->getId());
+        }
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/{id}/dislike", name="proposal_dislike", methods={"GET"})
      * @param Request $request
      * @param Proposal $proposal
@@ -108,7 +136,12 @@ class ProposalController extends AbstractController
         $proposal->removeLike($this->getUser());
 
         $entityManager->flush();
-        return new RedirectResponse($request->headers->get('referer'));
+
+        if ($request->headers->get('referer') === $this->generateUrl('app_login', [], UrlGenerator::ABSOLUTE_URL)) {
+            return new RedirectResponse($this->generateUrl('home') . '#proposal' . $proposal->getId());
+        } else {
+            return new RedirectResponse($request->headers->get('referer') . '#proposal-' . $proposal->getId());
+        }
     }
 
     /**

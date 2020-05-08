@@ -3,98 +3,132 @@
 {% block title %}Proposal{% endblock %}
 
 {% block body %}
-    <div class="container my-5 mt-3 mt-md-5 show px-0 px-sm-3">
-        <div class="row align-items-center pt-3 pt-md-5">
-            <div class="col-12 col-md-auto mr-auto">
+    <div class="container my-5 mt-3 mt-md-5 show px-0 px-sm-3" id="proposal-{{ proposal.id }}">
+        <div class="row align-items-center pt-md-5">
+            <div class="col-12 col-sm-auto mr-auto">
                 <div class="">
-                    <a href="{{ path('home') }}">Retour à la liste</a>
+                    <a href="{{ path('home') }}" class="d-flex align-items-center"><i class="material-icons">keyboard_backspace</i> <div class="ml-2"><span> Retour à la liste</span></div></a>
                 </div>
             </div>
 
             {% if app.user and proposal.author.id == app.user.id %}
-                <div class="text-right text-sm-left mt-3 col-6 mt-sm-0 col-sm-auto">
+                <div class="text-right text-sm-left mt-4 col-6 mt-sm-0 col-sm-auto">
                     <a class="btn btn-info" href="{{ path('proposal_edit', {'id': proposal.id}) }}">Modifier</a>
                 </div>
-                <div class="text-left text-sm-left mt-3 col-6 mt-sm-0 col-sm-auto">
+                <div class="text-left text-sm-left mt-4 col-6 mt-sm-0 col-sm-auto">
                     {{ include('proposal/_delete_form.html.twig') }}
                 </div>
             {% endif %}
         </div>
-        <div class="row">
-            <div class="col text-center">
-                <h1 class="headline">{{ proposal.title }}</h1>
+        <div class="row justify-content-center">
+            <div class="col-6 col-sm-4 col-md-2 pl-0 pr-2 text-center">
+                <a href="{% if app.user %}{{ path('proposal_like', { id: proposal.id }) }}{% else %}{{ path('app_login') }}{% endif %}" class=" mt-3 btn action-button {% if app.user in proposal.likes %}button-active{% endif %}"><span style='font-size:20px;'>&#128077;</span> {{ proposal.likes|length }}</a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2 pr-0 pl-2 text-center">
+                <a href="{% if app.user %}{{ path('proposal_dislike', { id: proposal.id }) }}{% else %}{{ path('app_login') }}{% endif %}" class=" mt-3 btn action-button {% if app.user in proposal.dislikes %}button-active{% endif %}"><span style='font-size:20px;'>&#128078;</span> {{ proposal.dislikes|length }}</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 px-0 px-sm-3">
-                <h4 class="subline">
-                    Économie
-                </h4>
-            </div>
-            <div class="col-12 wysiwyg-display">
-                <p>
-                    {{ proposal.economic|raw }}
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 px-0 px-sm-3">
-                <h4 class="subline">
-                    Droit
-                </h4>
-            </div>
-            <div class="col-12 wysiwyg-display">
-                <p>
-                    {{ proposal.juridic|raw }}
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 px-0 px-sm-3">
-                <h4 class="subline">
-                    Environnement
-                </h4>
-            </div>
-            <div class="col-12 wysiwyg-display">
-                <p>
-                    {{ proposal.environmental|raw }}
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 px-0 px-sm-3">
-                <h4 class="subline">
-                    Éducation
-                </h4>
-            </div>
-            <div class="col-12 wysiwyg-display">
-                <p>
-                    {{ proposal.education|raw }}
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 px-0 px-sm-3">
-                <h4 class="subline">
-                    Culture
-                </h4>
-            </div>
-            <div class="col-12 wysiwyg-display">
-                <p>
-                    {{ proposal.cultural|raw }}
-                </p>
-            </div>
-        </div>
-        <div class="row  justify-content-center">
-            {% if app.user%}
-                <div class="col-12 col-md-3 text-center">
-                    <a href="{{ path('proposal_like', { id: proposal.id }) }}" class=" mt-3 btn action-button">Accord</a>
+        <div class="proposal">
+            <div class="row">
+                <div class="col text-center">
+                    <h1 class="headline">{{ proposal.title }}</h1>
                 </div>
-                <div class="col-12 col-md-3 text-center">
-                    <a href="{{ path('proposal_dislike', { id: proposal.id }) }}" class=" mt-3 btn action-button">Désaccord</a>
+            </div>
+            <div class="row">
+                <div class="col-12 px-0 px-sm-3">
+                    <h4 class="subline">
+                        Économie
+                    </h4>
+                </div>
+                <div class="col-12 wysiwyg-display">
+                    <p>
+                        {{ proposal.economic|raw }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 px-0 px-sm-3">
+                    <h4 class="subline">
+                        Droit
+                    </h4>
+                </div>
+                <div class="col-12 wysiwyg-display">
+                    <p>
+                        {{ proposal.juridic|raw }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 px-0 px-sm-3">
+                    <h4 class="subline">
+                        Environnement
+                    </h4>
+                </div>
+                <div class="col-12 wysiwyg-display">
+                    <p>
+                        {{ proposal.environmental|raw }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 px-0 px-sm-3">
+                    <h4 class="subline">
+                        Éducation
+                    </h4>
+                </div>
+                <div class="col-12 wysiwyg-display">
+                    <p>
+                        {{ proposal.education|raw }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 px-0 px-sm-3">
+                    <h4 class="subline">
+                        Culture
+                    </h4>
+                </div>
+                <div class="col-12 wysiwyg-display">
+                    <p>
+                        {{ proposal.cultural|raw }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row px-0 mt-5">
+            <div class="col-12 px-0">
+                <h3 class="mb-0">Commentaires</h3>
+            </div>
+            {% if app.user %}
+                <div class="col-12 px-0 mb-3 add-comment">
+                    {{ include('comment/_form.html.twig') }}
+                </div>
+            {% else %}
+                <div class="col-12 my-3 mt-4 pl-0">
+                    <a href="{{ path('app_login') }}">Connectez-vous pour ajouter un commentaire</a>
                 </div>
             {% endif %}
+            {% for comment in proposal.comments %}
+                <div class="col-12 comment" id="comment-{{ comment.id }}">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-auto">{{ comment.author.firstName }}</div>
+                        <div class="d-flex">
+                            {% if app.user and app.user.id == comment.author.id  %}
+                                <div class="col-auto pl-0 pr-4 text-center">
+                                    {{ include('comment/_delete_form.html.twig') }}
+                                </div>
+                            {% endif %}
+                            <div class="col-auto pl-0 pr-2 text-center">
+                                <a href="{{ path('comment_like', { id: comment.id }) }}" class="btn action-button {% if app.user in comment.likes %}button-active{% endif %}"><span style='font-size:20px;'>&#128077;</span> {{ comment.likes|length }}</a>
+                            </div>
+                            <div class="col-auto pr-0 pl-2 text-center">
+                                <a href="{{ path('comment_dislike', { id: comment.id }) }}" class="btn action-button {% if app.user in comment.dislikes %}button-active{% endif %}"><span style='font-size:20px;'>&#128078;</span> {{ comment.dislikes|length }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wysiwyg-display">{{ comment.content|raw }}</div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-
 {% endblock %}

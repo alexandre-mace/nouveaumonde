@@ -3,12 +3,12 @@
 {% block title %}Nouvelle vision{% endblock %}
 
 {% block body %}
-    <div class="container my-5">
+    <div class="container mt-md-5 mb-5 mt-0 px-0">
         <div class="row">
             <div class="col">
-                <h1>Nouvelle vision</h1>
+                <h1 class="headline text-center mb-5 mt-3">Nouvelle vision</h1>
                 <div class="my-3">
-                    <a href="{{ path('home') }}">Retour à la liste</a>
+                    <a href="{{ path('home') }}" class="d-flex align-items-center"><i class="material-icons">keyboard_backspace</i> <div class="ml-2"><span> Retour à la liste</span></div></a>
                 </div>
 
                 {{ include('proposal/_form.html.twig') }}

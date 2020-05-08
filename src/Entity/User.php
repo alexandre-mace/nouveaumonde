@@ -58,11 +58,29 @@ class User implements UserInterface
      */
     private $firstName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="likes")
+     */
+    private $likedComments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="dislikes")
+     */
+    private $dislikedComments;
+
     public function __construct()
     {
         $this->likedProposals = new ArrayCollection();
         $this->dislikedProposals = new ArrayCollection();
         $this->ownedProposals = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->likedComments = new ArrayCollection();
+        $this->dislikedComments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,5 +263,92 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->getFirstName();
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getLikedComments(): Collection
+    {
+        return $this->likedComments;
+    }
+
+    public function addLikedComment(Comment $likedComment): self
+    {
+        if (!$this->likedComments->contains($likedComment)) {
+            $this->likedComments[] = $likedComment;
+            $likedComment->addLike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikedComment(Comment $likedComment): self
+    {
+        if ($this->likedComments->contains($likedComment)) {
+            $this->likedComments->removeElement($likedComment);
+            $likedComment->removeLike($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getDislikedComments(): Collection
+    {
+        return $this->dislikedComments;
+    }
+
+    public function addDislikedComment(Comment $dislikedComment): self
+    {
+        if (!$this->dislikedComments->contains($dislikedComment)) {
+            $this->dislikedComments[] = $dislikedComment;
+            $dislikedComment->addDislike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDislikedComment(Comment $dislikedComment): self
+    {
+        if ($this->dislikedComments->contains($dislikedComment)) {
+            $this->dislikedComments->removeElement($dislikedComment);
+            $dislikedComment->removeDislike($this);
+        }
+
+        return $this;
     }
 }

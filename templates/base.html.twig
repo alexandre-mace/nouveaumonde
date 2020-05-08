@@ -10,20 +10,21 @@
         {% block head_css %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         {% endblock %}
     </head>
     <body class="dark">
         {% block header %}
             <div class="container mt-3 mt-md-5">
                 <div class="row align-items-center">
-                    <div class="col-12 text-center text-sm-left col-sm-auto mr-sm-auto">
+                    <div class="text-center text-sm-left col-sm-auto mr-sm-auto">
                         <a class="reset" href="{{ path('home') }}"><h5><b><i>nouveau monde</i></b></h5></a>
                     </div>
                     {% if app.user %}
-                        <div class="text-center text-sm-left col-12 mt-3 mt-sm-0 col-sm-auto ml-sm-auto">
-                            <a class="btn" href="{{ path('proposal_new') }}">Nouvelle vision</a>
+                        <div class="d-block d-sm-none logout">
+                            <a class="btn red" href="{{ path('app_logout') }}"><i class="material-icons">exit_to_app</i></a>
                         </div>
-                        <div class="text-center text-sm-left col-12 mt-3 mt-sm-0 col-sm-auto col-auto pr-sm-0">
+                        <div class="d-none d-sm-block text-center text-sm-left mt-3 mt-sm-0 col-sm-auto col-auto pr-sm-0">
                             <a class="btn red" href="{{ path('app_logout') }}">Se déconnecter</a>
                         </div>
                     {% else %}

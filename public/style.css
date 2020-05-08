@@ -47,10 +47,14 @@ input {
     transform: translateY(0px) !important;
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s !important;
 }
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 900px) {
     .card:hover {
-        transform: translateY(-20px) !important;
+        transform: translateY(-10px) !important;
     }
+}
+.button-active {
+    border: 1px solid white !important;
+    height: 37px !important;
 }
 body.dark .btn {
     background-color: #126AFC;
@@ -75,6 +79,33 @@ body.dark .sidenav {
 body.dark .sidenav li a:not(.subheader) {
     color: #89B2F5;
 }
+a:hover {
+    text-decoration: none !important;
+}
+.show .input-field {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.show .cke_contents {
+    height: 100px !important;
+}
+.show label {
+    left: 0 !important;
+}
+.comment {
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    border-radius: 7px;
+    color: black;
+}
+.add-comment {
+    height: 273px !important;
+}
+.comment-btn {
+    margin-top: -25px;
+}
 @media screen and (max-width: 640px) {
     .headline {
         font-size: 2rem;
@@ -84,6 +115,24 @@ body.dark .sidenav li a:not(.subheader) {
         font-size: 1.3rem;
         margin-top: 1rem;
     }
+}
+.proposal {
+    color: black;
+    border-radius: 7px;
+    padding: 20px;
+    background-color: white;
+}
+.logout {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: block;
+}
+.logout a {
+    padding: 0 12px;
+}
+label {
+    font-size: 1rem !important;
 }
 body.dark .sidenav li a:not(.subheader):hover {
     background-color: #3B4043;
