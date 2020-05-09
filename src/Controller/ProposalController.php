@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 class ProposalController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/new", name="proposal_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
